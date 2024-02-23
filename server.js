@@ -1,44 +1,43 @@
-// Import necessary Node.js packages
-const express = require('express');
-const session = require('express-session');
-const exphbs = require('express-handlebars');
 const path = require('path');
-
-// Import sequelize connection
+const express = require('express');
+const routes = require('./controllers');
 const sequelize = require('./config/connection');
+const helpers = require('./utils/helpers');
+const exphbs = require('express-handlebars');
+const hbs = exphbs.create({
+    helpers
+});
+const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
-// Initialize Express
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Set up session with Sequelize
 const sess = {
-  secret: 'Super secret secret', // You should store the actual secret in an environment variable
-  cookie: {},
-  resave: false,
-  saveUninitialized: true,
-  store: new SequelizeStore({
-    db: sequelize,
-  }),
+    secret: process.env.DB_SECRET,
+    cookie: {},
+    resave: false,
+    saveUninitialized: true,
+    store: new SequelizeStore({
+        db: sequelize,
+        checkExpirationInterval: 1000 * 60 * 10, // will check every 10 minutes
+        expiration: 1000 * 60 * 30 // will expire after 30 minutes
+    })
 };
 
-app.use(session(sess));
+const app = express();
+const PORT = process.env.PORT || 3001;
 
-// Set up Handlebars.js as the template engine
-app.engine('handlebars', exphbs());
+app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
-// Middleware for parsing JSON and urlencoded form data
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(session(sess));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
+app.use(express.urlencoded({
+    extended: true
+}));
+app.use(routes);
 
-// Import routes (Make sure to create these files as per MVC structure)
-// Example: const routes = require('./controllers');
-// app.use(routes);
+sequelize.sync();
 
-// Connect to the database and start the Express server
-sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log(`Now listening on port ${PORT}`));
+app.listen(PORT, () => {
+    console.log(`App listening on port ${PORT}!`);
 });
