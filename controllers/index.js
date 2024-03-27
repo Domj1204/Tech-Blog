@@ -1,17 +1,16 @@
 const router = require('express').Router();
 const apiRoutes = require('./api');
-const homeRoutes = require('./home-routes.js');
-const dashboardRoutes = require('./dashboard-routes.js');
+const homeRoutes = require('./homeRoutes');
+const dashboardRoutes = require('./dashboardRoutes');
 
-
-router.use('/api', apiRoutes);
-router.use('/dashboard', dashboardRoutes);
+/* Define the paths used for each route */
 router.use('/', homeRoutes);
+router.use('/dashboard', dashboardRoutes);
+router.use('/api', apiRoutes);
 
-
+/* Return a 404 error for any unhandled routes */
 router.use((req, res) => {
     res.status(404).end();
 });
-
 
 module.exports = router;
