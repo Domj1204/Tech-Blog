@@ -1,121 +1,137 @@
+/**
+ * @file homeRoutes.js
+ * Implements the home page API routes to render handlebars files
+ * 
+ * @see  ../views/homepage.handlebars
+ */
+
 const router = require('express').Router();
-const sequelize = require('../config/connection');
-const {
-    User,
-    Post,
-    Comment
-} = require('../models');
+const { Post, User, Comment } = require('../models');
 
-
-router.get('/', (req, res) => {
-    Post.findAll({
-            attributes: [
-                'id',
-                'title',
-                'content',
-                'created_at'
-            ],
-            include: [{
-                    model: Comment,
-                    attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
-                    include: {
-                        model: User,
-                        attributes: ['username']
-                    }
-                },
+/**
+ * @route GET '/' 
+ * Finds and returns all `Posts` in the database to render in homepage.handlebars
+ */
+router.get('/', async (req, res) => {
+    try {
+        const postData = await Post.findAll({
+            attributes: ['id', 'title', 'content', 'created_date'],
+            order: [['created_date', 'DESC']],
+            include: [
                 {
                     model: User,
-                    attributes: ['username']
+                    attributes: ['id', 'username']
+                },
+                {
+                    model: Comment,
+                    attributes: ['id', 'content', 'created_date'],
+                    include: {
+                        model: User,
+                        attributes: ['id', 'username']
+                    }
                 }
             ]
-        })
-        .then(dbPostData => {
-            const posts = dbPostData.map(post => post.get({
-                plain: true
-            }));
-
-            res.render('homepage', {
-                posts,
-                loggedIn: req.session.loggedIn
-            });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
         });
+    
+        if (!postData) {
+            res.status(404).json({
+                message: 'No post data was found in the database.'
+            });
+            return;
+        }
+
+        // Serialize and render the post data in homepage.handlebars
+        const posts = postData.map(post => post.get({ plain: true }));
+        res.render('homepage', { 
+            posts,
+            loggedIn: req.session.loggedIn
+        });
+    } catch (err) {
+        res.status(500).json(err);
+    }
 });
 
-router.get('/post/:id', (req, res) => {
-    Post.findOne({
-            where: {
-                id: req.params.id
-            },
-            attributes: [
-                'id',
-                'title',
-                'content',
-                'created_at'
-            ],
-            include: [{
-                    model: Comment,
-                    attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
-                    include: {
+/**
+ * @route GET '/:id'
+ * Finds and and returns Post data by id to render in single-post.handlebars
+ */
+router.get('/post/:id', async (req, res) => {
+    try {
+        const postData = await Post.findByPk(
+            req.params.id, 
+            {
+                attributes: ['id', 'title', 'content', 'created_date'],
+                include: [
+                    { 
                         model: User,
-                        attributes: ['username']
+                        attributes: ['id', 'username'],
+                    },
+                    {
+                        model: Comment,
+                        attributes: ['id', 'content', 'created_date', 'user_id', 'post_id'],
+                        include: {
+                            model: User,
+                            attributes: ['id', 'username']
+                        }
                     }
-                },
-                {
-                    model: User,
-                    attributes: ['username']
-                }
-            ]
-        })
-        .then(dbPostData => {
-            if (!dbPostData) {
-                res.status(404).json({
-                    message: 'No post found with this id'
-                });
-                return;
+                ]
             }
-
-            const post = dbPostData.get({
-                plain: true
+        );
+        
+        if (!postData) {
+            res.status(404).json({
+                message: 'No post data was found for the requested id.'
             });
+            return;
+        }
 
-            res.render('single-post', {
-                post,
-                loggedIn: req.session.loggedIn
-            });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json(err);
+        // Serialize and render the post data and render it in single-post.handlebars
+        const post = postData.get({ plain: true });
+        res.render('single-post', {
+            post,
+            loggedIn: req.session.loggedIn
         });
+    } catch (err) {
+        res.status(500).json(err);
+    }
 });
 
+/**
+ * @route GET '/login'
+ * Redirects the user to login.handlebars page
+ */
 router.get('/login', (req, res) => {
-    if (req.session.loggedIn) {
-        res.redirect('/');
-        return;
-    }
+    try {
+        // If the user is already logged in, redirect to the home page
+        if (req.session.loggedIn) {
+            res.redirect('/');
+            return;
+        }
 
-    res.render('login');
+        // If the user is not logged in, render login.handlebars for the user to login
+        res.render('login');
+    } catch (err) {
+        res.status(500).json(err);
+    }
 });
 
+/**
+ * @route GET '/signup'
+ * Redirects the user to the signuo.handlebars page
+ */
 router.get('/signup', (req, res) => {
-    if (req.session.loggedIn) {
-        res.redirect('/');
-        return;
+    try { 
+        // If the user is logged in, redirect them to the homepage.handlebars page
+        if (req.session.loggedIn) {
+          res.redirect('/');
+          return;
+        }
+      
+        // If the user is not logged in, render signup.handlebars for the user to sign up 
+        res.render('signup');
+    } catch (err) {
+        res.status(500).json(err);
     }
-
-    res.render('signup');
 });
-
-
-router.get('*', (req, res) => {
-    res.status(404).send("Can't go there!");
-    // res.redirect('/');
-})
-
 
 module.exports = router;
