@@ -1,20 +1,23 @@
-<section class="new-post-section">
-    <button type="submit" class="btn" id="create-new-post">+ Create new post</button>
-</section>
+<div>
+    <h3 class="my-4 text-light">My Dashboard</h3>
+</div>
 
+{{!-- Add button to create new post --}}
+<a href="/dashboard/addPost"><button id="add-post-btn" class="button">+ New Post</button></a>
 
+{{!-- Render the posts if they exist in the database --}}
 {{#if posts.length}}
-<section>
-    <h2>Your Dashboard</h2>
-    <ul class="post-list">
+    <div class="container">
         {{#each posts as |post|}}
-        <li>
-            {{> post-info post}}
-            <a href="/dashboard/edit/{{post.id}}" class="edit-link">edit post</a>
-        </li>
+            {{!-- Wrap each post in <a>, which links to dashboard route get post by id, so the user can click to expand it --}}
+            <a href="/dashboard/update/{{post.id}}" class="container w-100">
+                {{!-- Call the posts.handlebars partial to render the post --}}
+                {{> posts post}}
+            </a>
         {{/each}}
-    </ul>
-</section>
+    </div>
+{{else}}
+    <div>
+        <h5 class="my-5">You don't have any posts yet! Click the "New Post" button to get started.</h5>
+    </div>
 {{/if}}
-
-<script src="/javascript/create-post.js"></script>

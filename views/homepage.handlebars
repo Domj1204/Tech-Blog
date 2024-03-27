@@ -1,7 +1,17 @@
-<ul class="post-list">
+<div>
+    <h3 class="my-4 text-light mb-0">Home</h3>
+</div>
+
+{{!-- Render the posts if they exist in the database --}}  
+{{#if posts.length}}
     {{#each posts as |post|}}
-    <li>
-        {{> post-info post }}
-    </li>
+        {{!-- Wrap each post in <a>, which links to homeRoute get by id, so the user can click to expand it --}}
+        <a href="/post/{{id}}" class="container w-100">
+            {{> posts post}}
+        </a>
     {{/each}}
-</ul>
+{{else}}
+    <div>
+        <h5  class="my-5">No posts to show!</h5>
+    </div>
+{{/if}}
