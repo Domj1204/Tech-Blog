@@ -1,32 +1,36 @@
 /**
- * @function deletePostFormHandler
+ * @function updatePostFormHandler
  * @param {*} event 
  * 
- * Handles the event the user is deleting a post in update-post.handlebars 
+ * Handles when the update post button in update-post.handlebars is clicked
  */
-async function deletePostFormHandler(event) {
-    event.preventDefault();
-    
-    // Retrieve id from window
+async function updatePostFormHandler(event) {
+	event.preventDefault();
+  
+    const title = document.getElementById('post-title').value;
+    const content = document.getElementById('post-content').value;
+
+    // Retrieve the post ID from window
     const id = window.location.toString().split('/')[
         window.location.toString().split('/').length - 1
     ];
 
-    // Call the postRoute DELETE api route to delete the post by id
+    // Call the postRoute to update the post by id
     const response = await fetch(`/api/posts/${id}`, {
-        method: 'DELETE',
+        method: 'PUT',
         body: JSON.stringify({
-            post_id: id
+            title,
+            content
         }),
         headers: {'Content-Type': 'application/json'}
     });
-    
-    // Redirect the user back to dashboard once the post has been deleted 
-    if (response.ok) {
-        document.location.replace('/dashboard');
-    } else {
-        alert(response.statusText);
-    }
-  }
   
-  document.querySelector('.delete-post-btn').addEventListener('click', deletePostFormHandler);
+    // Redirect the user back to dashboard once the post has been updated
+    if (response.ok) {
+      	document.location.replace('/dashboard');
+    } else {
+      	alert(response.statusText);
+    }
+}
+  
+document.querySelector('.update-post-form').addEventListener('submit', updatePostFormHandler);
