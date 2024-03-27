@@ -10,7 +10,7 @@ const { Post, User, Comment } = require('../models');
 
 /**
  * @route GET '/' 
- * Finds and returns all `Posts` in the database to render in homepage.handlebars
+ * Finds and returns all Post data in the database, including associated User and Comment data
  */
 router.get('/', async (req, res) => {
     try {
@@ -40,7 +40,7 @@ router.get('/', async (req, res) => {
             return;
         }
 
-        // Serialize and render the post data in homepage.handlebars
+        // Serialize the post data and render it in homepage.handlebars
         const posts = postData.map(post => post.get({ plain: true }));
         res.render('homepage', { 
             posts,
@@ -53,7 +53,7 @@ router.get('/', async (req, res) => {
 
 /**
  * @route GET '/:id'
- * Finds and and returns Post data by id to render in single-post.handlebars
+ * Finds and returns the Post data by `id`, including associated User and Comment data
  */
 router.get('/post/:id', async (req, res) => {
     try {
@@ -85,7 +85,7 @@ router.get('/post/:id', async (req, res) => {
             return;
         }
 
-        // Serialize and render the post data and render it in single-post.handlebars
+        // Serialize the post data and render it in single-post.handlebars
         const post = postData.get({ plain: true });
         res.render('single-post', {
             post,
@@ -108,7 +108,7 @@ router.get('/login', (req, res) => {
             return;
         }
 
-        // If the user is not logged in, render login.handlebars for the user to login
+        // If the user is not logged in, render login.handlebars for the user to log in
         res.render('login');
     } catch (err) {
         res.status(500).json(err);
@@ -117,17 +117,17 @@ router.get('/login', (req, res) => {
 
 /**
  * @route GET '/signup'
- * Redirects the user to the signuo.handlebars page
+ * Redirects the user to signup.handlebars page
  */
 router.get('/signup', (req, res) => {
     try { 
-        // If the user is logged in, redirect them to the homepage.handlebars page
+        //  If the user is already logged in, redirect to the home page
         if (req.session.loggedIn) {
           res.redirect('/');
           return;
         }
       
-        // If the user is not logged in, render signup.handlebars for the user to sign up 
+        // If the user is not logged in, render signup.handlebars for the user to sign up
         res.render('signup');
     } catch (err) {
         res.status(500).json(err);

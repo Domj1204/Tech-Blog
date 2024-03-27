@@ -1,14 +1,14 @@
 /**
  * @file index.js
- * Executes association methods on the Sequelize models to create relationships between them
+ * Define the associations between the Sequelize models
  */
 
-/* Import the Sequelize models */
+/* Import the models */
 const User = require('./User');
 const Post = require('./Post');
 const Comment = require('./Comment');
 
-/* `User` model hasMany `Posts` and `Comments` */
+/* Define the associations */
 User.hasMany(Post, {
     foreignKey: 'user_id',
 });
@@ -17,7 +17,7 @@ User.hasMany(Comment, {
     foreignKey: 'user_id',
 });
 
-/* `Post` model belongs to `User` and has many `Comments` */
+/* `Post` model belongs to `User` */
 Post.belongsTo(User, {
     foreignKey: 'user_id',
 });
@@ -26,7 +26,7 @@ Post.hasMany(Comment, {
     foreignKey: 'post_id'
 });
 
-// `Comment` model belongs to `Post` and to `User`
+// Comment model belongs to User and Post
 Comment.belongsTo(Post, {
     foreignKey: 'post_id'
 })

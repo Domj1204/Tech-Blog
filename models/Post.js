@@ -1,11 +1,10 @@
 /**
  * @file Post.js
- * Defines the Sequelize model `Post` with the following attributes: 
- *  - id 
- *  - title
- *  - content
- *  - created_date
- *  - user_id (references `User` model `id`) - the user that created the post
+ * Defines the Post model and associations between the Post, User, and Comment models
+ * - id					- Integer, primary key, auto increment
+ * - title				- String, required
+ * - content				- Text, required
+ * - created_date		- Date, required
  */
 
 const { Model, DataTypes } = require('sequelize');

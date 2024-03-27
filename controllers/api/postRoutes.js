@@ -10,7 +10,7 @@ const withAuth = require('../../utils/auth');
 
 /**
  * @route GET '/api/posts'
- * Finds and returns all post data, including associated User and Comment data 
+ * Find and return all post data, including associated User and Comment data
  */
 router.get('/', async (req,res) => {
     try {
@@ -21,7 +21,7 @@ router.get('/', async (req,res) => {
                 'content',
                 'created_date',
             ],
-            // Order the data by created_date in descending order 
+            // Order the posts by created_date in descending order
             order: [['created_date', 'DESC']],
             include: [
                 {
@@ -39,7 +39,7 @@ router.get('/', async (req,res) => {
             ],
         });
     
-        // Validate post data was found in the database
+        // Post data was not found
         if (!postData) {
             res.status(404).json({
                 message: 'No post data was found in the database.'
@@ -99,17 +99,17 @@ router.get('/:id', async (req, res) => {
 router.post('/', withAuth, async (req, res) => {
     try {
         const postData = await Post.create({
-            // Get post title and content from the req.body
+            // Get title and content from req.body
             title: req.body.title,
             content: req.body.content,
-            // Get user_id from req.session and create new Date object for created_date
+            // Get user_id from the session
             created_date: new Date(),
             user_id: req.session.user_id,
         });
         
         res.status(200).json(postData);
     } catch (err) {
-        // Post instance failed to be created due to bad request
+        // Return a 400 error if the request body is missing title or content
         res.status(400).json(err);
     }
 });

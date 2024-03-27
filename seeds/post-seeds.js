@@ -1,40 +1,36 @@
-/**
- * @file post-seeds.js
- * Calls the bulkCreate function on the `Post` model to add data to the database
- */
-
+// Purpose: To seed the Post table with data
 const { Post } = require('../models');
 
 const postData = [
     {
-        title: "The Tech Blog goes live!",
-        content: "Use this website to stay in the loop! The Tech Blog is a tool where developers can publish their blog posts and comment on other developers' posts.",
-        created_date: "02/10/2024",
-        user_id: 2,
-    },
-    {
-        title: "3 Ways to Upgrade your Workflow Management",
-        content: "Feeling stuck? Here are a few ways to increase your productivity, manage your time, and reduce stress. Take advantage of project management software. Set clear and strict expectations for yourself. Work on prioritizing your tasks so you stay organized.",
-        created_date: "05/12/2020",
-        user_id: 1,
-    },
-    {
-        title: "Have you heard of Sequelize?",
-        content: "Sequelize is a Node. js-based Object Relational Mapper that makes it easy to work with MySQL, MariaDB, SQLite, PostgreSQL databases, and more. Contact me if you're interested and want to learn more!",
-        created_date: "11/03/2022",
-        user_id: 3,
-    },
-    {
-        title: "Code Quiz app is now available!",
-        content: "I just created a code quiz app that is now live! Be on top of your learning by reviewing basic web development principles. You can access it here: https://dymoy.github.io/code-quiz/",
-        created_date: "09/30/2023",
+        title: "streamlined project management now easier",
+        content: "find out how project streamlining tools can revamp your team's efficiency. They're not just for large corporations anymore!",
+        created_date: "01/15/2023",
         user_id: 4,
     },
     {
-        title: "The Utility of ESLint: Why you need this extention!",
-        content: "Constantly scanning your code to look for that syntax error? ESLint is a static code analysis tool for identifying problematic patterns found in JavaScript code.",
-        created_date: "01/05/2024",
+        title: "boosting daily productivity with simple hacks",
+        content: "discover little changes that can make a big impact on your day-to-day tasks. From smarter notifications to strategic break-taking, learn how to work smarter.",
+        created_date: "09/27/2021",
+        user_id: 2,
+    },
+    {
+        title: "explore new ways to manage data",
+        content: "looking for a fresh approach to handle your application's data? We're discussing the latest trends in data management systems that are taking the industry by storm.",
+        created_date: "01/01/2024",
         user_id: 3,
+    },
+    {
+        title: "interactive learning with new dev quiz platform",
+        content: "join our newly launched developer quiz platform and take your coding knowledge to the next level with fun, challenging quizzes!",
+        created_date: "07/10/2023",
+        user_id: 1,
+    },
+    {
+        title:  "simplifying your code with smart tools",
+        content: "learn about tools that help you clean up your codebase, making it more efficient and less prone to errors, without the hassle.",
+        created_date: "04/22/2020",
+        user_id: 2,
     },
 ]
 

@@ -1,10 +1,10 @@
 /**
  * @file User.js
- * Defines the Sequelize model `User` with the following attributes: 
- *  - id 
- *  - username
- *  - email
- *  - password
+ * Defines the User model and associations between the User, Post, and Comment models
+ * - id					- Integer, primary key, auto increment
+ * - username			- String, required
+ * - email				- String, required, unique, must be a valid email address
+ * - password			- String, required, must be at least 8 characters long
  */
 
 const { Model, DataTypes } = require('sequelize');
@@ -12,7 +12,7 @@ const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
 
 class User extends Model {
-	// Use bcrypt to verify if the loginPw parameter matches the database record
+	// Add a method to the User model to check the password
 	checkPassword(loginPw) {
 		return bcrypt.compareSync(loginPw, this.password);
 	}

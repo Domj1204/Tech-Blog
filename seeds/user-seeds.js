@@ -1,35 +1,31 @@
-/**
- * @file user-seeds.js
- * Calls the bulkCreate function on the `User` model to add data to the database
- */
-
+// Purpose: to seed the user table with data
 const { User } = require('../models');
 
 const userData = [
     {
-        username: "aloretta",
-        email: "aloretta@gmail.com",
-        password: "Password1"
+        "username": "bluepanda2024",
+        "email": "bluepanda2024@example.com",
+        "password": "Secure*991"
     },
     {
-        username: "gforest",
-        email: "gforest@gmail.com",
-        password: "Password2"
+        "username": "silverwolf359",
+        "email": "silverwolf359@example.com",
+        "password": "MyPass*882"
     },
     {
-        username: "jonclarke",
-        email: "jclarke@gmail.com",
-        password: "Password3"
+        "username": "crimsonfalcon7",
+        "email": "crimsonfalcon7@example.com",
+        "password": "Safeguard*776"
     },
     {
-        username: "mnaka",
-        email: "mnakagawa@gmail.com",
-        password: "Password4"
+        "username": "amberjaguar",
+        "email": "amberjaguar@example.com",
+        "password": "KeepSafe*564"
     },
     {
-        username: "kentony",
-        email: "ktony@gmail.com",
-        password: "Password5"
+        "username": "greentechno",
+        "email": "greentechno@example.com",
+        "password": "Protector*347"
     },
 ]
 

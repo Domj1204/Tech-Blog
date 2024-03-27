@@ -1,9 +1,4 @@
-/**
- * @file commentRoutes.js
- * Implements the API routes for the `Comment` model
- * Supported routes: GET read all, POST create, DELETE remove by id
- */
-
+// Initialize express router and require models
 const router = require('express').Router();
 const { User, Post, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
@@ -33,7 +28,7 @@ router.get('/', async (req,res) => {
             ]
         });
     
-        // Verify data was found 
+        // Comment data was not found
         if (!commentData) {
             res.status(404).json({
                 message: 'No comment data was found in the database.'
@@ -41,7 +36,7 @@ router.get('/', async (req,res) => {
             return;
         }
     
-        // Return data to the client
+        // Return the comment data as JSON
         res.status(200).json(commentData);
     } catch (err) {
         res.status(500).json(err);
@@ -56,10 +51,10 @@ router.post('/', withAuth, async (req, res) => {
     try {
         if (req.session) {
             const commentData = await Comment.create({
-                // Get comment content and post_id from the req.body
+                // Get content and post_id from req.body
                 content: req.body.content,
                 post_id: req.body.post_id,
-                // Get user_id from req.session and create a new Date object for created_date
+                // Get user_id from the session
                 user_id: req.session.user_id,
                 created_date: new Date(),
             });
@@ -73,18 +68,18 @@ router.post('/', withAuth, async (req, res) => {
 
 /**
  * @route DELETE '/api/comments/:id'
- * Deletes a Comment by id 
+ * Deletes a Comment by id
  */
 router.delete('/:id', withAuth, async (req, res) => {
     try {
-        // Call the .destroy() method to delete the comment from the db by id 
+        // Delete Comment data by id
         const commentData = await Comment.destroy({
             where: {
                 id: req.params.id
             }
         });
 
-        // Comment data was not found 
+        // Comment data was not found
         if (!commentData) {
             res.status(404).json({
                 message: 'No comment data was found for the requested id.'

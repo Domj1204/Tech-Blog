@@ -9,7 +9,7 @@
     "seed": "node seeds/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Domonic Jennings <jenningsdomonic@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",

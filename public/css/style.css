@@ -1,140 +1,139 @@
 :root {
-    --primary: #3d5852;
-    --secondary: #86938f;
-    --tertiary: #5e877f;
+    --primary: #0b386e;
+    --secondary: #7696b4;
+    --tertiary: #167fca;
     --quatrinary: #6c6b67;
-    --light: #e3e4e3;
-    --dark: #182c23;
-    --error: rgb(228, 46, 1);
+    --light: #f4f4f4;
+    --dark: #181939;
+    --error: rgb(188, 39, 2);
     --border-radius: 0.3rem;
   }
   
   body {
-    font-family: Arial;
+    font-family: 'Helvetica Neue', sans-serif;
     margin: 0;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    justify-content: flex-start;
-    background-color: var(--quatrinary);
-  }
-  
-  a {
-    color: var(--dark);
-    text-decoration: none;
-  }
-  
-  a:visited {
-    color: inherit;
-  }
-  
-  header {
-    padding: 40px;
-    text-align: center;
-    background: var(--primary);
-    color: var(--light);
-  }
-  
-  main {
+    justify-content: space-between;
+    background-color: var(--quaternary-color);
+}
+
+a {
+    color: var(--dark-shade);
+    text-decoration: underline;
+}
+
+a:visited {
+    color: var(--dark-shade);
+}
+
+header {
+    padding: 32px;
+    text-align: left;
+    background: var(--primary-color);
+    color: var(--light-shade);
+}
+
+main {
     display: flex;
     flex-wrap: wrap;
     flex-grow: 1;
-  }
-  
-  .navbar {
+    padding: 10px;
+}
+
+.navbar {
     display: flex;
-    background-color: var(--secondary);
+    background-color: var(--secondary-color);
     flex-direction: row;
-    justify-content: center;
-  }
-  
-  .navbar-item {
-    padding: 14px 20px;
-    margin: 5px;
-    text-decoration: none;
-    text-align: center;
-  }
-  
-  nav a:hover {
-    color: var(--light);
-    background-color: var(--tertiary);
-  }
-  
-  footer {
+    justify-content: space-around;
+    padding: 10px 0;
+}
+
+.navbar-item {
+    padding: 10px 16px;
+    margin: 6px;
+    text-decoration: underline;
+    text-align: left;
+}
+
+nav a:hover {
+    color: var(--light-shade);
+    background-color: var(--highlight-color);
+}
+
+footer {
     width: 100%;
-    height: 30px;
-  }
-  
-  /* CARDS */
-  .card {
-    margin: 20px;
-    flex: 0 1 auto;
-    border: 7px double var(--dark);
-    border-radius: 10px;
-    background-color: var(--light);
-    color: var(--dark);
-    width: 70%;
-  }
-  
-  .comment-card,
-  .new-comment-card {
-    margin: 12px;
-    flex: 0 1 auto;
-    border: 7px double var(--dark);
-    border-radius: 10px;
-    background-color: var(--light);
-    color: var(--dark);
-    width: 60%;
-  }
-  
-  .login-card,
-  .signup-card {
-    width: 40%;
-  }
-  
-  #signup-option {
-    color: var(--quatrinary);
-  }
-  
-  #signup-option:hover {
-    color: var(--tertiary);
-  }
-  
-  .card-header {
-    color: var(--light);
-    margin: 0%;
-    padding: 15px 15px;
-    background-color: var(--tertiary);
-    border-radius: calc(0.18rem - 1px) calc(0.18rem - 1px) 0 0;
-    text-align: left;
-  }
-  
-  .card-body {
-    padding: 15px 15px;
-    font-size: 1rem;
-    text-align: left;
-    overflow-y: scroll;
-  }
-  
-  .user-info {
-    font-size: 0.8rem;
-    text-align: right;
-    color: lightgray;
-  }
-  
-  #post-content {
-    height: 200px;
-  }
-  
-  .user-options button:hover {
-    background-color: var(--tertiary);
-    color: var(--light);
-  }
-  
-  /* LAYOUT */
-  .container {
+    padding: 10px 0;
+}
+
+/* CARDS */
+.card {
+    margin: 15px;
+    flex: 1 1 30%;
+    border: 5px solid var(--dark-shade);
+    border-radius: 8px;
+    background-color: var(--light-shade);
+    color: var(--text-color);
+}
+
+.comment-card,
+.new-comment-card {
+    margin: 10px;
+    flex: 1 1 45%;
+    border: 5px solid var(--dark-shade);
+    border-radius: 8px;
+    background-color: var(--light-shade);
+    color: var(--text-color);
+}
+
+.login-card,
+.signup-card {
+    width: 35%;
+}
+
+#signup-option {
+    color: var(--secondary-color);
+}
+
+#signup-option:hover {
+    color: var(--highlight-color);
+}
+
+.card-header {
+    color: var(--light-shade);
+    padding: 12px 12px;
+    background-color: var(--highlight-color);
+    border-radius: 5px 5px 0 0;
+    text-align: center;
+}
+
+.card-body {
+    padding: 20px 20px;
+    font-size: 0.95rem;
+    text-align: justify;
+    overflow-y: auto;
+}
+
+.user-info {
+    font-size: 0.75rem;
+    text-align: center;
+    color: var(--light-shade);
+}
+
+#post-content {
+    height: 180px;
+}
+
+.user-options button:hover {
+    background-color: var(--highlight-color);
+    color: var(--light-shade);
+}
+
+.container {
     display: flex;
-    flex-flow: column wrap;
-    align-content: center;
+    flex-direction: column;
     align-items: center;
-  }
+    justify-content: center;
+    padding: 15px;
+}

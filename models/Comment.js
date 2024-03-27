@@ -1,10 +1,9 @@
 /**
  * @file Comment.js
- * Defines the Sequelize model `Comment` with the following attributes: 
- *  - id 
- *  - content
- *  - user_id (references `User` model `id`) - the user that created the comment
- *  - post_id (references `Post` model `id`) - the post of which the comment is replied to
+ * Defines the Comment model and its associations
+ * - id					- Integer, primary key, auto increment
+ * - content				- Text, required
+ * - created_date		- Date, required
  */
 
 const { Model, DataTypes } = require('sequelize');

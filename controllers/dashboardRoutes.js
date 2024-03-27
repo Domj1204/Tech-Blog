@@ -1,6 +1,6 @@
 /**
  * @file dashboardRoutes.js
- * Implements the dashboard page API routes to render handlebars files
+ * Implements the routes for the dashboard view
  * 
  * @see  ../views/dashboard.handlebars
  */
@@ -44,7 +44,7 @@ router.get('/', withAuth, async (req, res) => {
             ]
         });
 
-        // Serialize and render the data in .handlebars
+        // Serialize and render the data in dashboard.handlebars
         const posts = postData.map((post) => post.get({ plain: true }));
 
         res.render('dashboard', {
@@ -103,7 +103,7 @@ router.get('/addPost', withAuth, async (req, res) => {
 
 /**
  * @route GET '/update/:id'
- * Checks the session user, finds the post data by id for the user, and returns data to render in update-post.handlebars
+ * Checks the session user, finds the post data for the user, and returns data to render in update-post.handlebars
  */
 router.get('/update/:id', withAuth, async (req, res) => {
     try {

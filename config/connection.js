@@ -1,19 +1,12 @@
-/**
- * @file connection.js
- * Creates the Sequelize instance to connect to the database
- *   
- * @see ../server.js
- */
-
-// Use the dotenv package to use environment variables to store sensitive data such as MySQL username, password, and database name.
+// Purpose: Create the Sequelize instance and export it to be used in ../server.js
 require('dotenv').config();
 
-// Create the Sequelize instance 
+// Import the Sequelize constructor from the library 
 const Sequelize = require('sequelize');
 let sequelize;
 
 if (process.env.JAWSDB_URL) {
-	// Use JawsDB_URL to work with Heroku deployment
+	// If the JawsDB URL exists, create a new instance of Sequelize with the JawsDB URL
 	sequelize = new Sequelize(process.env.JAWSDB_URL);
 } else {
 	sequelize = new Sequelize(

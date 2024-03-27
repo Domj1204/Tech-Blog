@@ -9,12 +9,12 @@ const withAuth = require('../../utils/auth');
 
 /**
  * @route GET '/api/users'
- * Finds and returns all user data in the database, excluding the password of the users.
+ * Finds and returns all user data in the database, excluding the user password
  */
 router.get('/', async (req, res) => {
     try {
         const userData = await User.findAll({
-            // Include all data except the user password
+            // Exclude the password attribute from the returned data
             attributes: { exclude: ['password'] }
         });
     
@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
 
 /**
  * @route GET '/api/users/:id'
- * Finds and returns the user data with the requested id, including the associated Post and Comment data 
+ * Finds and returns the user data by `id`, including associated Post and Comment data
  */
 router.get('/:id', async (req, res) => {
     try {
@@ -73,7 +73,7 @@ router.get('/:id', async (req, res) => {
 
 /**
  * @route POST '/api/users/'
- * Creates a `User` and adds it to the database 
+ * Creates a new user using the data in req.body 
  */
 router.post('/', async (req, res) => {
     try { 
@@ -106,12 +106,12 @@ router.post('/', async (req, res) => {
  */
 router.post('/login', async (req, res) => {
     try { 
-        // Find the user in the database by email 
+        // Find the user by email entered in the request body 
         const userData = await User.findOne({ 
             where: { email: req.body.email } 
         });
 
-        // Validate the user was found, else return 400 code for bad request
+        // Validate that the email entered exists in the database, else return 400 code for bad request
         if (!userData) {
             res.status(400).json({ 
                 message: 'The entered email was not found. Please try again.' 
@@ -119,7 +119,7 @@ router.post('/login', async (req, res) => {
             return;
         }
 
-        // Validate that the password entered matches the database record, else return 400 code for bad request
+        // Validate that the password entered matches the password in the database, else return 400 code for bad request
         const validPassword = userData.checkPassword(req.body.password);
         if (!validPassword) {
             res.status(400).json({ 
@@ -128,7 +128,7 @@ router.post('/login', async (req, res) => {
             return;
         }
 
-        // If email and password match the database record, log the user in by saving session data 
+        // Once the user was validated, log them in by saving session data
         req.session.save(() => {
             req.session.user_id = userData.id;
             req.session.username = userData.username;
@@ -146,10 +146,10 @@ router.post('/login', async (req, res) => {
 
 /**
  * @route POST 'api/users/logout' 
- * Logs the user out by destroying the session 
+ * Logs out the user by destroying the session 
  */
 router.post('/logout', (req, res) => {
-    // If loggedIn value is true, destroy the active session
+    // If the user is logged in, destroy the session and log them out
     if (req.session.loggedIn) {
         req.session.destroy(() => {
             res.status(204).end();
@@ -161,7 +161,7 @@ router.post('/logout', (req, res) => {
 
 /**
  * @route PUT '/api/users/:id' 
- * Updates the data for the user by `id` using data in req.body
+ * Updates the user data by id
  */
 router.put('/:id', withAuth, async (req, res) => {
     try { 
@@ -187,7 +187,7 @@ router.put('/:id', withAuth, async (req, res) => {
 
 /**
  * @route DELETE '/api/users/:id'
- * Removes the requested user by id
+ * Deletes the user data by id
  */
 router.delete('/:id', withAuth, async (req, res) => {
     try { 
