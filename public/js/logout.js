@@ -1,16 +1,20 @@
+/**
+ * @function logout
+ * Destroys the current session 
+ */
 async function logout() {
+    // Calls userRoutes POST /logout API route to destroy the session 
     const response = await fetch('/api/users/logout', {
-        method: 'post',
-        headers: {
-            'Content-Type': 'application/json'
-        }
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
     });
-
+  
+    // Redirect the user to the homepage 
     if (response.ok) {
-        document.location.replace('/');
+      document.location.replace('/');
     } else {
-        alert(response.statusText);
+      alert(response.statusText);
     }
 }
-
+  
 document.querySelector('#logout').addEventListener('click', logout);
