@@ -1,30 +1,39 @@
-async function commentFormHandler(event) {
+/**
+ * @function newCommentFormHandler 
+ * @param {*} event 
+ * 
+ * Handles the event the user is adding a new comment to a post in single-post.handlebars
+ */
+async function newCommentFormHandler(event) {
     event.preventDefault();
+  
+    // Retrieve the comment text 
+    const content = document.getElementById('comment-content').value;
 
-    const comment_text = document.querySelector('textarea[name="comment-body"]').value.trim();
-
+    // Retrieve post_id from window 
     const post_id = window.location.toString().split('/')[
-        window.location.toString().split('/').length - 1
+      window.location.toString().split('/').length - 1
     ];
-
-    if (comment_text) {
+  
+    // Validate that inputted comment is not empty 
+    if (content) {
+        // Call commentRoutes.js POST api route to create a new comment in the database
         const response = await fetch('/api/comments', {
             method: 'POST',
             body: JSON.stringify({
-                post_id,
-                comment_text
+                content,
+                post_id
             }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: {'Content-Type': 'application/json'}
         });
-
+      
         if (response.ok) {
+            // If the POST request was successful, reload the page to render the new added comment
             document.location.reload();
         } else {
             alert(response.statusText);
         }
-    }
-}
-
-document.querySelector('.comment-form').addEventListener('submit', commentFormHandler);
+      }
+  }
+  
+document.querySelector('.new-comment-form').addEventListener('submit', newCommentFormHandler);
