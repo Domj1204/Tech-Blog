@@ -1,5 +1,5 @@
 :root {
-    --primary: #0b386e;
+    --primary: #204a66;
     --secondary: #7696b4;
     --tertiary: #167fca;
     --quatrinary: #6c6b67;
@@ -16,7 +16,7 @@
     flex-direction: column;
     min-height: 100vh;
     justify-content: space-between;
-    background-color: var(--quaternary-color);
+    background-color: var(--quaternary);
 }
 
 a {
@@ -31,7 +31,7 @@ a:visited {
 header {
     padding: 32px;
     text-align: left;
-    background: var(--primary-color);
+    background-color: var(--primary) !important;
     color: var(--light-shade);
 }
 
@@ -44,7 +44,7 @@ main {
 
 .navbar {
     display: flex;
-    background-color: var(--secondary-color);
+    background-color: var(--secondary);
     flex-direction: row;
     justify-content: space-around;
     padding: 10px 0;
@@ -77,7 +77,7 @@ footer {
     color: var(--text-color);
 }
 
-.comment-card,
+/* .comment-card,
 .new-comment-card {
     margin: 10px;
     flex: 1 1 45%;
@@ -85,7 +85,7 @@ footer {
     border-radius: 8px;
     background-color: var(--light-shade);
     color: var(--text-color);
-}
+} */
 
 .login-card,
 .signup-card {
@@ -93,7 +93,7 @@ footer {
 }
 
 #signup-option {
-    color: var(--secondary-color);
+    color: var(--secondary);
 }
 
 #signup-option:hover {
@@ -103,9 +103,9 @@ footer {
 .card-header {
     color: var(--light-shade);
     padding: 12px 12px;
-    background-color: var(--highlight-color);
-    border-radius: 5px 5px 0 0;
-    text-align: center;
+    background-color: var(--tertiary);
+    /* border-radius: 5px 5px 0 0;
+    text-align: center; */
 }
 
 .card-body {
@@ -121,9 +121,9 @@ footer {
     color: var(--light-shade);
 }
 
-#post-content {
+/* #post-content {
     height: 180px;
-}
+} */
 
 .user-options button:hover {
     background-color: var(--highlight-color);
@@ -132,7 +132,6 @@ footer {
 
 .container {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 15px;

@@ -3,7 +3,7 @@ const { Comment } = require('../models');
 
 const commentData = [
     {
-        "user_id": 6,
+        "user_id": 1,
         "post_id": 3,
         "content": "This update is fantastic, can't wait to see the features in action!",
         "created_date": "03/12/2024"
@@ -39,8 +39,8 @@ const commentData = [
         "created_date": "04/21/2024"
     },
     {
-        "user_id": 6,
-        "post_id": 5,
+        "user_id": 5,
+        "post_id": 3,
         "content": "Curious about compatibility with other plugins. Has anyone tested this?",
         "created_date": "05/30/2024"
     },
