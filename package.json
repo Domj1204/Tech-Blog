@@ -8,6 +8,10 @@
     "start": "node server.js",
     "seed": "node seeds/index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/domj1204/tech-blog.git"
+  },
   "keywords": [],
   "author": "Domonic Jennings <jenningsdomonic@gmail.com>",
   "license": "ISC",
